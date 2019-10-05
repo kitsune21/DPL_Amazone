@@ -1,69 +1,29 @@
 import React, { Component } from 'react';
+import { Header, Segment, Button, Icon } from 'semantic-ui-react';
+import ProductList from '../protuct/productList';
+// import ProductForm from './productForm';
 import axios from 'axios';
-import { Header } from 'semantic-ui-react';
-import Post from './Post';
-import PostForm from './PostForm';
 
 class Product extends Component {
-  state = { posts: [] }
+  state = { editing: false, products: [] }
+
+  toggleEdit = () => this.setState({ editing: !this.state.editing })
 
   componentDidMount() {
-    axios.get('/api/products')
+    axios.get(`/api/department/${this.props.department_id}/products`)
       .then( res => {
-        this.setState({ products: res.data })
-      })
-      .catch( err => {
-        console.log(err)
+        this.setState({products: res.data})
       })
   }
 
-  renderProduct = () => {
-    return this.state.products.map( post => <Product key={product.id} {...product} update={this.updateProduct} deleteProduct={this.deleteProduct} />)
-  }
-
-  addPost = (product) => {
-    axios.product('/api/products', { product })
-      .then( res => {
-        const { products } = this.state 
-        this.setState({ productts: [...products, res.data] })
-      })
-      .catch( err => {
-        console.log(err)
-      })
-  }
-
-  updateProduct = (id, product) => {
-    axios.put(`/api/products/${id}`, { product } )
-      .then( res => {
-        const products = this.state.products.map( p => {
-          if (p.id === id)
-            return res.data
-          return p
-        })
-        this.setState({ products })
-      })
-      .catch( err => {
-        console.log(err)
-      })
-  }
-
-  deleteProduct = (id) => {
-    axios.delete(`/api/products/${id}`)
-      .then( res => {
-        const { products } = this.state
-        this.setState({ products: products.filter( p => p.id !== id) })
-      })
-  }
-
-  render() {
+  render () {
+    const { id, name, update } = this.props
+    const { editing } = this.state
     return (
-      <>
-        <Header>Product Name</Header>
-        <ProductForm add={this.addProduct} />
-        { this.renderProduct() }
-      </>
+      <ProductList products={this.state.products}/>
     )
   }
 }
+
 
 export default Product;

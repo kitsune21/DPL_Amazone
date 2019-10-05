@@ -38,7 +38,7 @@ class ProductForm extends Component {
           value={name}
           onChange={this.handleChange}
         />
-        <Form.Input 
+        {/* <Form.Input 
           required
           placeholder='Price'
           type="text"
@@ -57,17 +57,17 @@ class ProductForm extends Component {
         />
         <Form.Input 
           required
-          placeholder='Description
+          placeholder='Description'
           type="TextArea"
-          label='description'
-          name='description'
+          label="description"
+          name="description"
           value={description}
-          onChange={this.handleChange}
+          onChange={this.handleChange} */}
         />
-        <Form.Button color='green'>Submit</Form.Button>
+        <Form.Button color="green">Submit</Form.Button>
       </Form>
     )
   }
 }
 
-export default productForm;
+export default ProductForm;

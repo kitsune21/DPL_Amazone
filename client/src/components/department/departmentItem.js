@@ -1,9 +1,10 @@
 import React from 'react';
-
+import Product from '../../components/protuct/product';
+import { Link } from 'react-router-dom';
 
 const DepartmentItem = ({department}) => (
   <div>
-    <p>{department.name}</p>
+    <Link to={'/products'}><p>{department.name}</p></Link>
   </div>
 )
 
