@@ -1,40 +1,26 @@
 import React, { Component } from 'react';
 import { Header, Segment, Button, Icon } from 'semantic-ui-react';
-import PostForm from './departmentForm';
+import DepartmentList from './departmentList';
+import DepartmentForm from './departmentForm';
+import axios from 'axios';
 
 class Department extends Component {
-  state = { editing: false }
+  state = { editing: false, departments: [] }
 
   toggleEdit = () => this.setState({ editing: !this.state.editing })
 
+  componentDidMount() {
+    axios.get('/api/departments')
+      .then( res => {
+        this.setState({departments: res.data})
+      })
+  }
+
   render () {
-    const { id, name, update, deleteDepartment } = this.props
+    const { id, name, update } = this.props
     const { editing } = this.state
     return (
-      <Segment style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'space-between'
-      }}>
-        {
-          editing ?
-              <DepartmentForm 
-                { ...this.props } 
-                update={ update } 
-                toggleEdit={this.toggleEdit}
-              />
-            :
-              <>
-                <Header>{name}</Header>
-              </>
-        }
-        <Button icon color='blue' onClick={this.toggleEdit}>
-          <Icon name="pencil" />
-        </Button>
-        <Button icon color='red' onClick={() => deletePost(id)}>
-          <Icon name="trash" />
-        </Button>
-      </Segment>
+      <DepartmentList departments={this.state.departments}/>
     )
   }
 }

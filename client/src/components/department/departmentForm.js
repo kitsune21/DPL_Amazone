@@ -45,4 +45,4 @@ class DepartmentForm extends Component {
   }
 }
 
-export default PostForm;
+export default DepartmentForm;
