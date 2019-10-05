@@ -10,7 +10,7 @@ class Product extends Component {
   toggleEdit = () => this.setState({ editing: !this.state.editing })
 
   componentDidMount() {
-    axios.get(`/api/department/${this.props.department_id}/products`)
+    axios.get(`/api/departments/${this.props.department_id.toString()}/products`)
       .then( res => {
         this.setState({products: res.data})
       })
