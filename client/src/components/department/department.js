@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Segment, Button, Icon } from 'semantic-ui-react';
-import PostForm from './PostForm';
+import PostForm from './departmentForm';
 
 class Department extends Component {
   state = { editing: false }
@@ -40,4 +40,4 @@ class Department extends Component {
 }
 
 
-export default Post;
+export default Department;
