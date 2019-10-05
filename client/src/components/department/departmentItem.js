@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 
 const DepartmentItem = ({department}) => (
   <div>
-    <Link to={'/products'}><p>{department.name}</p></Link>
+    <br />
+    <p>{department.name}</p>
+    <br />
+    <Product department_id={department.id} />
   </div>
 )
 
