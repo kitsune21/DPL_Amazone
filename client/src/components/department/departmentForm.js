@@ -5,8 +5,8 @@ class DepartmentForm extends Component {
   state = { name: '' }
 
   componentDidMount() {
-    if (this.props.id) {
-      this.setState({ name: this.props.name })
+    if (this.props.department) {
+      this.setState({ name: this.props.department.name })
     }
   }
 
@@ -17,8 +17,8 @@ class DepartmentForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.props.id) {
-      this.props.update(this.props.id, this.state)
+    if (this.props.department) {
+      this.props.update(this.props.department, this.state.name)
       this.props.toggleEdit()
     } else {
       this.props.add(this.state)
@@ -27,7 +27,7 @@ class DepartmentForm extends Component {
   }
 
   render() {
-    const { name } = this.state 
+    const { name } = this.state;
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input 

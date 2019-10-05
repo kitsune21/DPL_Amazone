@@ -6,7 +6,9 @@ before_action :set_department
   end
 
   def create
+    
     @product = @department.products.new(product_params)
+    
     if @product.save
       render json: @product
     else
@@ -14,15 +16,19 @@ before_action :set_department
     end
   end
   def update
-    @products = @department.product.find(params[:id])
+    @product = @department.products.find(params[:id])
+    @product.update(product_params)
+    render json: @product
   end
   def destroy
-    @department.product.find(params[:id]).destroy
+    @department.products.find(params[:id]).destroy
     render json: { message: 'product deleted'}
   end
   private
     def product_params
-      params.require(:product).permit(:name)
+
+      params.require(:product).permit(:name, :price, :image, :description)
+
     end
 
     def set_department
