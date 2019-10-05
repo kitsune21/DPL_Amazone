@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Form } from 'semantic-ui-react';
 
 class ProductForm extends Component {
-  state = { name: '' }
+  state = { name: '', price: 0, description: '', image: 'https://bit.ly/2oPLnp7'}
 
   componentDidMount() {
-    if (this.props.id) {
-      this.setState({ name: this.props.name })
+    if (this.props.product) {
+      this.setState({ ...this.props.product})
     }
   }
 
@@ -17,17 +17,17 @@ class ProductForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.props.id) {
-      this.props.update(this.props.id, this.state)
+    if (this.props.product) {
+      this.props.update(this.state)
       this.props.toggleEdit()
     } else {
       this.props.add(this.state)
     }
-    this.setState({ name: '' })
+    this.setState({ name: '', price: 0, description: '', image: ''})
   }
 
   render() {
-    const { name } = this.state 
+    const { name, price, description, image } = this.state 
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Input 
@@ -38,17 +38,16 @@ class ProductForm extends Component {
           value={name}
           onChange={this.handleChange}
         />
-        {/* <Form.Input 
+        <Form.Input 
           required
           placeholder='Price'
-          type="text"
+          type="number"
           label='price'
           name='price'
           value={price}
           onChange={this.handleChange}
         />
         <Form.Input 
-          required
           type="image"
           label='image'
           name='image'
@@ -62,7 +61,7 @@ class ProductForm extends Component {
           label="description"
           name="description"
           value={description}
-          onChange={this.handleChange} */}
+          onChange={this.handleChange}
         />
         <Form.Button color="green">Submit</Form.Button>
       </Form>

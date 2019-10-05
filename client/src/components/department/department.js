@@ -16,11 +16,46 @@ class Department extends Component {
       })
   }
 
+  addDepartment = (department) => {
+    axios.post(`/api/departments/`, {department})
+      .then( res => {
+        const { departments } = this.state;
+        this.setState({ departments: [...departments, res.data]})
+      })
+      .catch( res => {
+        debugger
+      })
+  }
+
+  updateDepartment = (department, name) => {
+    axios.put(`/api/departments/${department.id}/`, {name})
+      .then( res => {
+        const departments = this.state.departments.map( p => {
+          if( p.id === department.id)
+            return res.data
+          return p
+        })
+        this.setState({ departments, })
+      })
+  }
+
+  deleteDepartment = (id) => {
+    axios.delete(`/api/departments/${id}/`)
+      .then( res => {
+        const { departments } = this.state;
+        this.setState({ departments: departments.filter( p => p.id !== id )})
+      })
+  }
+
   render () {
     const { id, name, update } = this.props
     const { editing } = this.state
     return (
-      <DepartmentList departments={this.state.departments}/>
+      <>
+        <h2>Add Department</h2>
+        <DepartmentForm add={this.addDepartment}/>
+        <DepartmentList departments={this.state.departments} updateDepartment={this.updateDepartment} editing={editing} toggleEdit={this.toggleEdit} deleteDepartment={this.deleteDepartment}/>
+      </>
     )
   }
 }
